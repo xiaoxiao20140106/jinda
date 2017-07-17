@@ -1,0 +1,11 @@
+.code{
+	width:160px;
+}
+#codeImg{
+	width:100px;
+	height:42px;
+	border:1px solid #A9C3F4;
+	border-radius:6px;
+	position:relative;
+	top:17px;
+}

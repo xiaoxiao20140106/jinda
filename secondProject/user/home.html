@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>中关村创业大街</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/swiper.min.css">
+	<link rel="stylesheet" href="css/index.css">
+	<!-- atr new -->
+	<script type="text/html" id="home-new">
+		<div class="col-xs-12 col-md-6 new-left">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					{{each data v}}
+						<div class="swiper-slide">
+							<img src="../admin/images/{{v.imgPath}}" alt="">
+						</div>
+					{{/each}}
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-md-6 dialog">
+			<div class="panle">
+				<div class="panel-heading">
+					<div class="swiper-container">
+						<div class="swiper-wrapper">
+							{{each data v}}
+								<div class="swiper-slide">
+									<h3>{{v.title}}</h3>
+									<p>{{v.insto}}</p>
+								</div>
+							{{/each}}
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<ul>
+						{{each data v}}
+							<li><a href="#">{{v.title}}</a></li>
+						{{/each}}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</script>
+	<!-- atr org -->
+	<script type="text/html" id="home-org">
+		{{each data v}}
+			<div class="col-xs-4 org">
+				<div class="col-xs-4 ">
+					<img src="../admin/images/{{v.imgPath}}" class="img-circle orgImg" >
+				</div>
+				<div class="col-xs-8 ">
+					<h4>{{v.title}}</h4>
+					<span>{{v.insto}}</span>
+				</div>
+			</div>
+		{{/each}} 
+	</script>
+	<!-- atr active -->
+	<script type="text/html" id="home-activing">
+		<div class="col-xs-12 col-md-6 a-left">
+			<div class="hideInfo hideInfo-first" >
+				<img src="../admin/images/{{data[0].imgPath}}"  alt="">
+				<div>{{data[0].title}}</div>
+				<div>{{data[0].insto}}</div>
+				<div>活动地点：中关村创业大街</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-md-6 a-right">
+			<div class="row r-top">
+				<div class="hideInfo">
+					<img src="../admin/images/{{data[1].imgPath}}" alt="">
+					<div>{{data[1].title}}</div>
+					<div>{{data[1].insto}}</div>
+					<div>活动地点：中关村创业大街</div>
+				</div>
+			</div>
+			<div class="row r-bottom">
+				<div class="col-xs-6 b-left ">
+					<div class="hideInfo">
+						<img src="../admin/images/{{data[2].imgPath}}" alt="">
+						<div>{{data[2].title}}</div>
+						<div>{{data[2].insto}}</div>
+						<div>活动地点：中关村创业大街</div>
+					</div>			
+				</div>
+				<div class="col-xs-6 b-right">
+					<div class="hideInfo">
+						<img src="../admin/images/{{data[3].imgPath}}" alt="">
+						<div>{{data[3].title}}</div>
+						<div>{{data[3].insto}}</div>
+						<div>活动地点：中关村创业大街</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</script>
+	<script src="js/jquery-1.10.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/swiper.min.js"></script>
+	<script src="js/template-web.js"></script>
+	<script src="js/getDataAjax.js"></script>
+
+	<script>
+		$(function(){
+			showNew("streetNew","home-new","#new");
+			showData("Org","home-org","#organization");
+			showData("streetActive","home-activing","#activing");
+		});
+		function showNew(tb,art,id){
+			$.post("PHP/selectData.php",{"tb":tb},function(data){
+				var htmlStr = template(art,{"data":data});
+				$(id).html(htmlStr);
+				// 街区新闻轮播					
+				var swiper = new Swiper(".swiper-container",{
+					prevButton:".swiper-button-prev",
+					nextButton:".swiper-button-next",
+					autoplay:4000,
+					loop:true,
+				});
+			},"json");
+		}
+	</script>
+</head>
+<body>
+	<!-- 轮播图 -->
+	<div class="swiper-container swiper-hd">
+		<div class="swiper-wrapper">
+			<div class="swiper-slide">
+				<img src="images/banner_1.jpg" alt="">
+			</div>
+			<div class="swiper-slide">
+				<img src="images/banner_2.jpg" alt="">
+			</div>
+			<div class="swiper-slide">
+				<img src="images/banner_3.jpg" alt="">
+			</div>
+			<div class="swiper-slide">
+				<img src="images/banner_4.jpg" alt="">
+			</div>
+		</div>
+		<div class="swiper-button-prev swiper-button-white"></div>
+		<div class="swiper-button-next swiper-button-white"></div>
+	</div>
+	
+	<div class="container">
+		<!-- 街区新闻 -->
+		<div class="text">街区新闻</div>
+		<div class="row" id="new">
+
+		</div>
+		<!-- 入驻机构 -->
+		<div class="text">入驻机构</div>
+		<div class="row" id="organization">
+			
+		</div>
+		<!-- 街区活动 -->
+		<div class="text">街区活动</div>
+		<div class="row" id="activing">			 
+			
+		</div>
+	</div>
+
+	<script>
+		var swiper = new Swiper(".swiper-container",{
+			prevButton:".swiper-button-prev",
+			nextButton:".swiper-button-next",
+			autoplay:4000,
+			loop:true
+		});
+
+	</script>
+</body>
+</html>
